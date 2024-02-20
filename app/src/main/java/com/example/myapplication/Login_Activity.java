@@ -70,16 +70,36 @@ public class Login_Activity extends AppCompatActivity {
                                 // Data to be added to the document
                                 Map<String, Object> data = new HashMap<>();
                                 data.put("TeamName", valueToCheck);
-                                data.put("QuestionNumber", 0);
+                                data.put("QuestionNumber", "1");
                                 data.put("Score", 0);
 
+
+
                                 String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-                                addDocument(collectionName, androidId, data);
 
-                                Intent intent = new Intent(Login_Activity.this, MainActivity.class);
 
-                                startActivity(intent);
-                                finish();
+                                if(valueToCheck.equals("admin"))
+                                {
+                                    data.put("userType","admin");
+                                    addDocument(collectionName, androidId, data);
+
+                                    Intent intent = new Intent(Login_Activity.this, Admin_View.class);
+
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                                else
+                                {
+                                    data.put("userType","notadmin");
+                                    addDocument(collectionName, androidId, data);
+                                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+
 
                             } else {
                                 Toast.makeText(getApplicationContext(), "Please enter Correct pwd", Toast.LENGTH_SHORT).show();

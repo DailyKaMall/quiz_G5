@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -51,12 +53,44 @@ public class Activity_welcome_screen extends AppCompatActivity {
 
 
 
-                checkDeviceIdRegistered("mangla99",androidId).thenAccept(data -> {
-                    if (data != null) {
-                        Intent intent=new Intent(Activity_welcome_screen.this, MainActivity.class);
 
-                        startActivity(intent);
-                        finish();
+                checkDeviceIdRegistered("mangla99",androidId).thenAccept(data -> {
+
+
+                    if (data != null  ) {
+
+                        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+                        firestore.collection("mangla99").document(androidId)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        if (documentSnapshot.exists()) {
+                                            // Access the values in the document
+
+                                            String userType = documentSnapshot.getString("userType");
+                                            if(userType.equals("admin")) {
+                                                Intent intent = new Intent(Activity_welcome_screen.this, Admin_View.class);
+
+
+                                                startActivity(intent);
+                                                finish();
+                                            }
+
+                                            else
+                                            {
+                                                Intent intent = new Intent(Activity_welcome_screen.this, MainActivity.class);
+
+
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }
+                                    }
+                                });
+
+
                     } else {
                         Intent intent=new Intent(Activity_welcome_screen.this, Login_Activity.class);
 
