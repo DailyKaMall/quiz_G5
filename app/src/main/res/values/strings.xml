@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">quiz_G5</string>
+    <string name="welcome_text">Welcome to the Quiz!!\nShall we begin?</string>
+    <string name="login_page_button_text">Login Page ></string>
+    <string name="login_edit_text_hint">Enter your Team Id</string>
+    <string name="login_button_text">Login</string>
+    <string name="welcome_label_text">Welcome</string>
 </resources>
