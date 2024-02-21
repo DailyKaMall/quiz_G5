@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import static com.example.myapplication.NetworkChecker.isNetworkAvailable;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -41,6 +43,15 @@ public class Login_Activity extends AppCompatActivity {
                 EditText pwd = (EditText) findViewById(R.id.editTextTextPassword);
                 String pass = pwd.getText().toString();
 
+                if (!isNetworkAvailable(Login_Activity.this)) {
+                    Intent intent =new Intent(Login_Activity.this, Error_Activity.class);
+                    intent.putExtra("ERROR_MSG","Internet Is Not Available");
+
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+
                 validatePassword(pass);
             }
         });
@@ -71,7 +82,7 @@ public class Login_Activity extends AppCompatActivity {
                                 Map<String, Object> data = new HashMap<>();
                                 data.put("TeamName", valueToCheck);
                                 data.put("QuestionNumber", "1");
-                                data.put("Score", 0);
+                                data.put("Score", "1");
 
 
 
@@ -108,8 +119,14 @@ public class Login_Activity extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(e -> {
-                    // Handle query failure, if needed
                     Log.w(TAG, "Error querying document", e);
+                    Intent intent =new Intent(Login_Activity.this, Error_Activity.class);
+                    intent.putExtra("ERROR_MSG","Servor Error");
+
+                    startActivity(intent);
+                    finish();
+                    return;
+
                 });
     }
 
@@ -125,6 +142,13 @@ public class Login_Activity extends AppCompatActivity {
                         } else {
                             Exception e = task.getException();
                             e.printStackTrace();
+
+                            Intent intent =new Intent(Login_Activity.this, Error_Activity.class);
+                            intent.putExtra("ERROR_MSG","Servor Error");
+
+                            startActivity(intent);
+                            finish();
+                            return;
                         }
                     }
                 });

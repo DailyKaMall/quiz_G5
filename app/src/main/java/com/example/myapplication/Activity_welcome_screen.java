@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import static com.example.myapplication.NetworkChecker.isNetworkAvailable;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -52,6 +54,14 @@ public class Activity_welcome_screen extends AppCompatActivity {
                 String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
 
+                if (!isNetworkAvailable(Activity_welcome_screen.this)) {
+                    Intent intent =new Intent(Activity_welcome_screen.this, Error_Activity.class);
+                    intent.putExtra("ERROR_MSG","Internet Is Not Available");
+
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
 
 
                 checkDeviceIdRegistered("mangla99",androidId).thenAccept(data -> {
@@ -99,8 +109,12 @@ public class Activity_welcome_screen extends AppCompatActivity {
                     }
                 })
                         .exceptionally(e -> {
-                            // Handle exception
-                            System.err.println("Error: " + e.getMessage());
+                            Intent intent =new Intent(Activity_welcome_screen.this, Error_Activity.class);
+                            intent.putExtra("ERROR_MSG","Server Error");
+
+                            startActivity(intent);
+                            finish();
+
                             return null;
                         });
 
