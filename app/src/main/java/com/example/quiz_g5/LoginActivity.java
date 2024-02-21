@@ -18,6 +18,8 @@ import com.google.firebase.functions.HttpsCallableResult;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.provider.Settings.Secure;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText login_edit_text;
     private FirebaseFunctions mFunctions;
