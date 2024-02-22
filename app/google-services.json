@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "729434835808",
+    "project_id": "mangla99-93f63",
+    "storage_bucket": "mangla99-93f63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729434835808:android:5914f64b27c37703d2ec05",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPl-CsW67sRMLq_coFhbV9k5aewj5sggg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
