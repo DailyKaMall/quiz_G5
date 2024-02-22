@@ -3,7 +3,9 @@ package com.example.quiz_g5;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,12 +19,14 @@ import com.google.firebase.functions.HttpsCallableResult;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import android.provider.Settings.Secure;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText login_edit_text;
     private FirebaseFunctions mFunctions;
+    private String deviceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +35,16 @@ public class LoginActivity extends AppCompatActivity {
 
         login_edit_text = (EditText) findViewById(R.id.login_edit_text);
 
-        mFunctions = FirebaseFunctions.getInstance();
+        mFunctions = FirebaseHelper.getFunctionsInstance();
+
+        deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     private Task<String> login(String teamId){
 
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("teamId", teamId);
+        data.put("deviceId", deviceId);
 
         return mFunctions
                 .getHttpsCallable("login")
@@ -49,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //                        assert result != null;
                         if (result.isEmpty())
-                            return "nothing";
+                            return "";
 
                         return (String) result.get("role");
                     }
@@ -66,8 +73,18 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         String role = task.getResult();
-                        Toast.makeText(LoginActivity.this, role, Toast.LENGTH_SHORT).show();
-                        login_edit_text.setText("You are a " + role);
+
+                        if (!role.isEmpty()){
+                            Toast.makeText(LoginActivity.this, role, Toast.LENGTH_SHORT).show();
+
+                            Intent question_intent = new Intent(LoginActivity.this, QuestionActivity.class);
+                            startActivity(question_intent);
+                            finish();
+
+                            return;
+                        }
+
+                        Toast.makeText(LoginActivity.this, "wrong teamId", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

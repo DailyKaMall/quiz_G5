@@ -33,7 +33,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
         welcome_text_view = (TextView) findViewById(R.id.welcome_text_view);
         ok_button = (Button) findViewById(R.id.ok_button);
-        mFunctions = FirebaseFunctions.getInstance();
+
+        mFunctions = FirebaseHelper.getFunctionsInstance();
+
         deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
@@ -54,6 +56,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void onClickOkButton(View view){
+        Toast.makeText(this, "kuch bhi" + deviceId, Toast.LENGTH_SHORT).show();
 
         isLoggedIn()
                 .addOnCompleteListener(new OnCompleteListener<Boolean>() {
@@ -63,7 +66,17 @@ public class WelcomeActivity extends AppCompatActivity {
 
                         if (isLoggedIn){
                             Toast.makeText(WelcomeActivity.this, "You are already logged in", Toast.LENGTH_SHORT).show();
+
+                            Intent question_intent = new Intent(WelcomeActivity.this, QuestionActivity.class);
+                            startActivity(question_intent);
+
+                            finish();
+
+                            return;
                         }
+
+                        Toast.makeText(WelcomeActivity.this, "You are not logged in", Toast.LENGTH_SHORT).show();
+
                         Intent login_intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                         startActivity(login_intent);
                     }
