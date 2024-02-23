@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -71,7 +72,11 @@ public class LeaderBoard extends AppCompatActivity {
                             // Update the adapter with the fetched scores
                             leaderboardAdapter.setLeaderboardItems(leaderboardItems);
                         } else {
-                            // Handle errors
+                            Intent intent =new Intent(LeaderBoard.this, Error_Activity.class);
+                            intent.putExtra("ERROR_MSG","Server Error");
+
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 });
