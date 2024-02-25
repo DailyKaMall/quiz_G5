@@ -2,7 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#3498DB"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title="Quiz App"
+        app:titleTextColor="#FFFFFF" />
+
 
 
     <TextView
@@ -10,41 +23,60 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="What is the capital of France?"
+        android:layout_below="@id/toolbar"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
-        android:textSize="18sp" />
+        android:textSize="24sp"
+        android:textColor="#2C3E50"
+        android:fontFamily="sans-serif-medium" />
 
     <RadioGroup
         android:id="@+id/optionsRadioGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/questionTextView"
         android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true">
+        android:layout_marginHorizontal="32dp">
 
         <RadioButton
             android:id="@+id/optionARadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="A. Paris" />
+            android:text="A. Paris"
+            android:textSize="18sp"
+            android:textColor="#2C3E50"
+            android:fontFamily="sans-serif"
+            android:buttonTint="#3498DB" />
 
         <RadioButton
             android:id="@+id/optionBRadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="B. Berlin" />
+            android:text="B. Berlin"
+            android:textSize="18sp"
+            android:textColor="#2C3E50"
+            android:fontFamily="sans-serif"
+            android:buttonTint="#3498DB" />
 
         <RadioButton
             android:id="@+id/optionCRadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="C. London" />
+            android:text="C. London"
+            android:textSize="18sp"
+            android:textColor="#2C3E50"
+            android:fontFamily="sans-serif"
+            android:buttonTint="#3498DB" />
 
         <RadioButton
             android:id="@+id/optionDRadioButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="D. Rome" />
+            android:text="D. Rome"
+            android:textSize="18sp"
+            android:textColor="#2C3E50"
+            android:fontFamily="sans-serif"
+            android:buttonTint="#3498DB" />
     </RadioGroup>
 
     <Button
@@ -53,7 +85,12 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:layout_below="@id/optionsRadioGroup"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"
+        android:background="#3498DB"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium" />
+
 
 </RelativeLayout>
